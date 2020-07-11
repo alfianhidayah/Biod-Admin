@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.ScanActivity">
+
+    <!--Background Aplikasi-->
+    <View
+        android:id="@+id/viewAtas"
+        android:layout_width="match_parent"
+        android:layout_height="147dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewBawah"
+        android:layout_width="370dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bgapp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Akhir Background-->
+
+    <!--Logo-->
+    <ImageView
+        android:layout_width="156dp"
+        android:layout_height="43dp"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Akhir Logo-->
+
+    <!--Akhir Background-->
+
+
+    <!--====MENU UTAMA=====-->
+
+    <TextView
+        android:id="@+id/titleScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="8dp"
+        android:text="Klik Dibawah Ini \n Untuk Scan Kode QR"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewAtas" />
+
+
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="220dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="8dp"
+        android:text="Scan"
+        android:textSize="25sp"
+        app:icon="@drawable/icon_qr_code"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        app:strokeColor="@color/colorPrimaryDark"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleScan" />
+
+<!--    <Button-->
+<!--        android:id="@+id/btnLogout"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:text="Logout Admin"-->
+<!--        android:textSize="20sp"-->
+<!--        style="@style/Widget.MaterialComponents.Button.Icon"-->
+<!--        app:strokeColor="@color/colorPrimaryDark"-->
+<!--        app:backgroundTint="@color/colorAccent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.496"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnScan" />-->
+
+    <!--====AKHIR MENU UTAMA====-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

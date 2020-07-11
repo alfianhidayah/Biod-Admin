@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.EditActivity">
+
+    <!--Background Aplikasi-->
+    <View
+        android:id="@+id/viewAtas"
+        android:layout_width="match_parent"
+        android:layout_height="147dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewBawah"
+        android:layout_width="370dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bgapp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Akhir Background-->
+
+    <!--Logo-->
+    <ImageView
+        android:layout_width="156dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Akhir Logo-->
+
+    <!--Akhir Background-->
+
+
+
+
+    <!--========MENU UTAMA===========-->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp">
+
+        <!-- Scrollable content -->
+        <!-- UBAH BIODATA -->
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@+id/viewBawah">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ubah Transaksi"
+                    android:textSize="25sp"
+                    android:gravity="center_horizontal"/>
+
+                <LinearLayout
+                    android:id="@+id/namaIdKreditor"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/namaid_bg">
+
+                    <TextView
+                        android:id="@+id/namaKreditor"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25sp"
+                        android:textAlignment="center"
+                        android:text="Muhammad Alfian Hidayah" />
+
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/titleIdKreditor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ID Kreditor: "
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/idKreditor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#130413"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                    <!-- Linear ID Barang Kreditor-->
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/titleIdBarang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ID Barang : "
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/idBarang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#1310302"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                    <!-- Linear ID Transaksi Kreditor-->
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/titleIdTransaksi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ID Transaksi : "
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/idTransaksi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#1310302"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                    <!-- Linear Nominal Transaksi Kreditor-->
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/titleNominalTransaksi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nominal Transaksi : "
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/nominalTransaksi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#1310302"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputNominal"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukkan Nominal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="35dp"
+                    app:startIconDrawable="@drawable/ic_account_balance_wallet_24dp"
+                    app:boxBackgroundColor="@color/colorPrimary"
+                    android:textColorHint="#FFFFFF"
+                    app:hintTextColor="#FFFFFF">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ubahNominal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textColor="#FFFFFF"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <Button
+                    android:id="@+id/btnUbahTransaksi"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Ubah Transaksi"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+    <!--=======AKHIR MENU UTAMA=====-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
