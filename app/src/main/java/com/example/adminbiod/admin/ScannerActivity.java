@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class ScannerActivity extends AppCompatActivity {
     CodeScanner codeScanner;
     CodeScannerView scannerView;
     Button btnRescann, resultData;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,11 @@ public class ScannerActivity extends AppCompatActivity {
                                 //simpan result ke SharedPrefManager
                                 String id = result.getText();
 
+                                progressDialog = new ProgressDialog(ScannerActivity.this);
+                                progressDialog.setMessage("Loading..");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
+
                                 Call<ResponseScan> call = RetrofitClient
                                         .getInstance().getApi().scanning(id);
 
@@ -73,7 +80,7 @@ public class ScannerActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<ResponseScan> call, Response<ResponseScan> response) {
                                         ResponseScan responseScan = response.body();
-
+                                        progressDialog.hide();
                                         if (response.body().getStatus()){
                                             SharedPrefManager.getInstance(ScannerActivity.this)
                                                     .saveKreditor(response.body().getKreditor());
@@ -90,6 +97,7 @@ public class ScannerActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(Call<ResponseScan> call, Throwable t) {
+                                        progressDialog.hide();
                                         Toast.makeText(ScannerActivity.this, "ERROR ACCESS", Toast.LENGTH_LONG). show();
                                     }
 

@@ -2,6 +2,7 @@ package com.example.adminbiod.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -24,6 +25,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -36,8 +38,11 @@ public class InputActivity extends AppCompatActivity {
 
     TextView titleInput, namaKreditor, idKreditor;
     TextInputEditText inputIdBarang, inputNominal;
+    private ProgressDialog progressDialog;
+    public String id_kreditor, id_barang, id_transaksi,tanggal_transaksi, nominal_transaksi, nama_kreditor;
 
-//    Button btnBarangKredit;
+
+    //    Button btnBarangKredit;
     TextView viewBarangKredit;
     CharSequence[] barangList;
 
@@ -60,6 +65,8 @@ public class InputActivity extends AppCompatActivity {
         idKreditor = (TextView) findViewById(R.id.IDKreditor);
         inputIdBarang = (TextInputEditText) findViewById(R.id.masukkanIdBarang);
         inputNominal = (TextInputEditText) findViewById(R.id.masukkanNominal);
+
+
 
 //        barangList = new CharSequence[]{
 //                "HP Xiami Readme 3",
@@ -180,18 +187,22 @@ public class InputActivity extends AppCompatActivity {
         final String formatDate = sdf.format(calendar.getTime());
 //        viewPilihTanggal.setText(formatDate);
 
+
+
         //event pindah ke menu Home
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 DataKreditor dataKreditor = SharedPrefManager.getInstance(InputActivity.this).getKreditor();
                 DataTransaksi dataTransaksi = SharedPrefManager.getInstance(InputActivity.this).getTransaksi();
 
-                String id_kreditor = dataKreditor.getId_kreditor();
-                String id_barang = inputIdBarang.getText().toString().trim();
-                String id_transaksi = dataTransaksi.getId_transaksi();
-                String tanggal_transaksi = formatDate;
-                String nominal_transaksi = inputNominal.getText().toString().trim();
+                id_kreditor = dataKreditor.getId_kreditor();
+                id_barang = inputIdBarang.getText().toString().trim();
+                id_transaksi = dataTransaksi.getId_transaksi();
+                tanggal_transaksi = formatDate;
+                nominal_transaksi = inputNominal.getText().toString().trim();
+                nama_kreditor = dataKreditor.getNama_kreditor();
 
                 //validasi
                 if (id_barang.isEmpty()){
@@ -203,32 +214,74 @@ public class InputActivity extends AppCompatActivity {
                     inputNominal.requestFocus();
                 }
 
-                Call<ResponseTransaksi> call = RetrofitClient.getInstance().getApi()
-                        .inputTransaksi(id_kreditor,id_barang,id_transaksi,tanggal_transaksi,nominal_transaksi);
+                //formatternumber
+                DecimalFormat formatter = new DecimalFormat("#,###,###");
+                String get_value = formatter.format(Long.valueOf(String.valueOf(inputNominal.getText())));
 
-                call.enqueue(new Callback<ResponseTransaksi>() {
-                    @Override
-                    public void onResponse(Call<ResponseTransaksi> call, Response<ResponseTransaksi> response) {
-                        ResponseTransaksi responseTransaksi = response.body();
-                        if (response.body().getStatus()){
-                            Toast.makeText(InputActivity.this, responseTransaksi.getMessage(), Toast.LENGTH_LONG). show();
+                //akhir formater
 
-                            //SAVE DATA TRANSAKSI
-                            SharedPrefManager.getInstance(InputActivity.this).saveResultTransaksi(responseTransaksi.getTransaksi());
+                //alertdialog
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(InputActivity.this);
+                builder.setTitle("Lanjutkan Transaksi ?");
+                builder.setMessage("Nominal yang ingin dimasukkan : " + "\n"
+                        + "Rp. " + get_value + "\n\n"
+                        + "Untuk Kreditor a.n : " + nama_kreditor + "\n\n"
+                        + "Untuk Barang dengan ID : " + id_barang);
+                builder.setBackground(getResources().getDrawable(R.drawable.dialog_bg, null));
 
-                            Intent intent = new Intent(InputActivity.this, SuccessActivity.class);
-                            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(InputActivity.this, responseTransaksi.getMessage(), Toast.LENGTH_LONG). show();
-                        }
-                    }
+                builder.setPositiveButton("Lanjutkan", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //event setelah klik ok
+                                progressDialog = new ProgressDialog(InputActivity.this);
+                                progressDialog.setMessage("Memasukkan Data Transaksi");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
 
-                    @Override
-                    public void onFailure(Call<ResponseTransaksi> call, Throwable t) {
-                        Toast.makeText(InputActivity.this, "ERROR TRANSACTION", Toast.LENGTH_LONG). show();
-                    }
-                });
+                                Call<ResponseTransaksi> call = RetrofitClient.getInstance().getApi()
+                                        .inputTransaksi(id_kreditor,id_barang,id_transaksi,tanggal_transaksi,nominal_transaksi);
+
+                                call.enqueue(new Callback<ResponseTransaksi>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseTransaksi> call, Response<ResponseTransaksi> response) {
+                                        ResponseTransaksi responseTransaksi = response.body();
+                                        progressDialog.hide();
+                                        if (response.body().getStatus()){
+                                            Toast.makeText(InputActivity.this, responseTransaksi.getMessage(), Toast.LENGTH_LONG). show();
+
+                                            //SAVE DATA TRANSAKSI
+                                            SharedPrefManager.getInstance(InputActivity.this).saveResultTransaksi(responseTransaksi.getTransaksi());
+
+                                            Intent intent = new Intent(InputActivity.this, SuccessActivity.class);
+                                            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                        } else {
+                                            Toast.makeText(InputActivity.this, responseTransaksi.getMessage(), Toast.LENGTH_LONG). show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseTransaksi> call, Throwable t) {
+                                        progressDialog.hide();
+                                        Toast.makeText(InputActivity.this, "ERROR TRANSACTION", Toast.LENGTH_LONG). show();
+                                    }
+                                });
+
+
+                            }
+                        });
+
+                builder.setNeutralButton("Kembali", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //event setelah klik ok
+
+
+
+                            }
+                        });
+                //akhir alertdialog
+                builder.show();
             }
         });
 

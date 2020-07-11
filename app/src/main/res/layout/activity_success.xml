@@ -233,6 +233,7 @@
         <Button
             android:id="@+id/btnToHome"
             android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
             android:layout_gravity="center"
             android:text="Kembali"
             android:textSize="20sp"
@@ -241,18 +242,18 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/btnEdit"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            android:text="Edit Transaksi"
-            android:textSize="20sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"/>
+<!--        <Button-->
+<!--            android:id="@+id/btnEdit"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:text="Edit Transaksi"-->
+<!--            android:textSize="20sp"-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:paddingBottom="10dp"-->
+<!--            android:backgroundTint="@color/colorPrimaryDark"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="wrap_content"/>-->
 
 
     </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.adminbiod.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,8 @@ public class EditActivity extends AppCompatActivity {
     public TextView namaKreditor, idKreditor, idBarang, idTransaksi, nominalTransaksi;
     public TextInputEditText ubahNominal;
     public Button btnUbahTransaksi;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,11 @@ public class EditActivity extends AppCompatActivity {
                     ubahNominal.requestFocus();
                 }
 
+                progressDialog = new ProgressDialog(EditActivity.this);
+                progressDialog.setMessage("Memperbarui Data..");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
                 Call<ResponseTransaksi> call = RetrofitClient.getInstance().getApi()
                         .editTransaksi(id_kreditor,id_barang,id_transaksi,tanggal_transaksi,nominal_transaksi);
 
@@ -68,6 +76,7 @@ public class EditActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseTransaksi> call, Response<ResponseTransaksi> response) {
                         ResponseTransaksi responseTransaksi = response.body();
+                        progressDialog.hide();
                         if (response.body().getStatus()){
                             Toast.makeText(EditActivity.this, responseTransaksi.getMessage(), Toast.LENGTH_LONG). show();
 
@@ -84,6 +93,7 @@ public class EditActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseTransaksi> call, Throwable t) {
+                        progressDialog.hide();
                         Toast.makeText(EditActivity.this, "ERROR EDIT TRANSACTION", Toast.LENGTH_LONG). show();
                     }
                 });

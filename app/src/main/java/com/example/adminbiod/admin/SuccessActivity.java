@@ -15,7 +15,7 @@ import com.example.adminbiod.storage.SharedPrefManager;
 public class SuccessActivity extends AppCompatActivity {
 
     TextView titleSuccess, titleNama, namaSuccess, titleIdKreditor, idKreditorSuccess, titleIdBarang, idBarangSuccess, titleIdTransaksi, idTransaksiSuccess, titleTanggal, tanggalSuccess, titleNominal, nominalSuccess;
-    Button btnToHome, btnEdit;
+    Button btnToHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class SuccessActivity extends AppCompatActivity {
         nominalSuccess = (TextView) findViewById(R.id.nominalSuccess);
 
         btnToHome = (Button) findViewById(R.id.btnToHome);
-        btnEdit = (Button) findViewById(R.id.btnEdit);
+//        btnEdit = (Button) findViewById(R.id.btnEdit);
 
         //=============Akhir Sleksi Uhuy========
 
@@ -85,14 +85,14 @@ public class SuccessActivity extends AppCompatActivity {
             }
         });
 
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent home = new Intent(SuccessActivity.this, EditActivity.class);
-                home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(home);
-            }
-        });
+//        btnEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent home = new Intent(SuccessActivity.this, EditActivity.class);
+//                home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(home);
+//            }
+//        });
 
 
 
