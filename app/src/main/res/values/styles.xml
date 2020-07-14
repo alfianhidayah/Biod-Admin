@@ -13,4 +13,29 @@
         <item name="cornerSize">50dp</item>
     </style>
 
+    <!--    Divider-->
+
+    <style name="Divider">
+        <item name="android:background">@color/colorGray</item>
+    </style>
+
+    <style name="Divider.HorizontalHome" parent="Divider">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="Divider.Horizontal" parent="Divider">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="Divider.Vertical" parent="Divider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
 </resources>

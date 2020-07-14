@@ -37,7 +37,6 @@ public class ScannerActivity extends AppCompatActivity {
 
     CodeScanner codeScanner;
     CodeScannerView scannerView;
-    Button btnRescann, resultData;
     private ProgressDialog progressDialog;
 
     @Override
@@ -46,8 +45,6 @@ public class ScannerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scanner);
 
         scannerView =  findViewById(R.id.scannerView);
-        resultData = findViewById(R.id.resultData);
-        btnRescann = findViewById(R.id.btnRescann);
 
         codeScanner = new CodeScanner(this, scannerView);
 
@@ -58,68 +55,47 @@ public class ScannerActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        resultData.setText(result.getText());
+                        String id = result.getText();
 
-                        btnRescann.setVisibility(View.VISIBLE);
-                        resultData.setVisibility(View.VISIBLE);
-                        resultData.setOnClickListener(new View.OnClickListener() {
+                        progressDialog = new ProgressDialog(ScannerActivity.this);
+                        progressDialog.setMessage("Loading..");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+
+                        Call<ResponseScan> call = RetrofitClient
+                                .getInstance().getApi().scanning(id);
+
+                        call.enqueue(new Callback<ResponseScan>() {
                             @Override
-                            public void onClick(View view) {
-                                //simpan result ke SharedPrefManager
-                                String id = result.getText();
+                            public void onResponse(Call<ResponseScan> call, Response<ResponseScan> response) {
+                                ResponseScan responseScan = response.body();
+                                progressDialog.hide();
+                                if (response.body().getStatus()){
+                                    SharedPrefManager.getInstance(ScannerActivity.this)
+                                            .saveKreditor(response.body().getKreditor());
+                                    SharedPrefManager.getInstance(ScannerActivity.this)
+                                            .saveTransaksi(response.body().getTransaksi());
 
-                                progressDialog = new ProgressDialog(ScannerActivity.this);
-                                progressDialog.setMessage("Loading..");
-                                progressDialog.setCancelable(false);
-                                progressDialog.show();
-
-                                Call<ResponseScan> call = RetrofitClient
-                                        .getInstance().getApi().scanning(id);
-
-                                call.enqueue(new Callback<ResponseScan>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseScan> call, Response<ResponseScan> response) {
-                                        ResponseScan responseScan = response.body();
-                                        progressDialog.hide();
-                                        if (response.body().getStatus()){
-                                            SharedPrefManager.getInstance(ScannerActivity.this)
-                                                    .saveKreditor(response.body().getKreditor());
-                                            SharedPrefManager.getInstance(ScannerActivity.this)
-                                                    .saveTransaksi(response.body().getTransaksi());
-
-                                            Intent intent = new Intent(ScannerActivity.this, InputActivity.class);
-                                            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(intent);
-                                        } else {
-                                            Toast.makeText(ScannerActivity.this, responseScan.getMessage(), Toast.LENGTH_LONG). show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ResponseScan> call, Throwable t) {
-                                        progressDialog.hide();
-                                        Toast.makeText(ScannerActivity.this, "ERROR ACCESS", Toast.LENGTH_LONG). show();
-                                    }
-
-                                });
-
-
+                                    Intent intent = new Intent(ScannerActivity.this, InputActivity.class);
+                                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(ScannerActivity.this, responseScan.getMessage(), Toast.LENGTH_LONG). show();
+                                }
                             }
+
+                            @Override
+                            public void onFailure(Call<ResponseScan> call, Throwable t) {
+                                progressDialog.hide();
+                                Toast.makeText(ScannerActivity.this, "ERROR ACCESS", Toast.LENGTH_LONG). show();
+                            }
+
                         });
                     }
                 });
             }
         });
 
-        btnRescann.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                codeScanner.startPreview();
-                resultData.setText(null);
-                btnRescann.setVisibility(View.GONE);
-                resultData.setVisibility(View.GONE);
-            }
-        });
     }
 
 
@@ -135,8 +111,6 @@ public class ScannerActivity extends AppCompatActivity {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                 codeScanner.startPreview();
-                btnRescann.setVisibility(View.GONE);
-                resultData.setVisibility(View.GONE);
             }
 
             @Override

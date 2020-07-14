@@ -2,6 +2,7 @@ package com.example.adminbiod.api;
 
 import com.example.adminbiod.model.model_admin.ResponseLogin;
 import com.example.adminbiod.model.model_admin.ResponseTransaksi;
+import com.example.adminbiod.model.model_kreditor.ResponseDataBarang;
 import com.example.adminbiod.model.model_kreditor.ResponseScan;
 
 import retrofit2.Call;
@@ -21,6 +22,12 @@ public interface Api {
     @FormUrlEncoded
     @POST("scanner")
     Call<ResponseScan>scanning(
+            @Field("id_kreditor") String id
+    );
+
+    @FormUrlEncoded
+    @POST("databarang")
+    Call<ResponseDataBarang>ambildatabarang(
             @Field("id_kreditor") String id
     );
 
