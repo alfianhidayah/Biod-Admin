@@ -26,7 +26,7 @@ public interface Api {
     );
 
     @FormUrlEncoded
-    @POST("databarang")
+    @POST("DataBarang")
     Call<ResponseDataBarang>ambildatabarang(
             @Field("id_kreditor") String id
     );

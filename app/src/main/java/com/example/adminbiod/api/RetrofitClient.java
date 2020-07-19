@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "http://192.168.43.136/biod-api/api/";
+    private static final String BASE_URL = "https://kreditbiod.000webhostapp.com/biod-api/api/";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 
